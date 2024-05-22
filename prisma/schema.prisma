@@ -1,0 +1,52 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserCreationStrategy {
+  ADDRESS @map("ADDRESS")
+  EMAIL   @map("EMAIL")
+}
+
+enum UserRole {
+  CUSTOMER @map("CUSTOMER")
+  ADMIN    @map("ADMIN")
+  PARTNER  @map("PARTNER")
+}
+
+enum WalletProvider {
+  META_MASK       @map("META_MASK")
+  COINBASE_WALLET @map("COINBASE_WALLET")
+  WALLET_CONNECT  @map("WALLET_CONNECT")
+}
+
+type UserWallet {
+  address  String
+  provider WalletProvider
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  email        String?
+  username     String?
+  createdBy    UserCreationStrategy
+  firstName    String?
+  lastName     String?
+  wallets      UserWallet[]
+  activeWallet UserWallet?
+  apiKey       String?
+  roles        UserRole[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([username])
+  @@index([apiKey])
+}
