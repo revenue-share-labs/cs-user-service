@@ -10,7 +10,5 @@ RUN npm install && \
 
 # Expose port and start application
 # EXPOSE 3030
-
-RUN ls
 # CMD ["prisma/setup.sh", "&&", "npm", "run", "start:prod"]
 # CMD ["/bin/bash", "-c", "./run.sh"]
