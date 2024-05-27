@@ -9,7 +9,7 @@ RUN npm install && \
     npm run build
 
 # Expose port and start application
-EXPOSE 3030
+# EXPOSE 3030
 
 # CMD ["prisma/setup.sh", "&&", "npm", "run", "start:prod"]
-CMD ["/bin/bash", "-c", "./run.sh"]
+# CMD ["/bin/bash", "-c", "./run.sh"]
